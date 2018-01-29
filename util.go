@@ -5,8 +5,8 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/flashmob/go-guerrilla/mail"
-	"github.com/flashmob/go-guerrilla/response"
+	"github.com/obukhov-sergey/go-guerrilla/mail"
+	"github.com/obukhov-sergey/go-guerrilla/response"
 )
 
 var extractEmailRegex, _ = regexp.Compile(`<(.+?)@(.+?)>`) // go home regex, you're drunk!

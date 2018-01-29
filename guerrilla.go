@@ -3,8 +3,8 @@ package guerrilla
 import (
 	"errors"
 	"fmt"
-	"github.com/flashmob/go-guerrilla/backends"
-	"github.com/flashmob/go-guerrilla/log"
+	"github.com/obukhov-sergey/go-guerrilla/backends"
+	"github.com/obukhov-sergey/go-guerrilla/log"
 	"os"
 	"sync"
 	"sync/atomic"

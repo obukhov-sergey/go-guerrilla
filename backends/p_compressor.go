@@ -3,7 +3,7 @@ package backends
 import (
 	"bytes"
 	"compress/zlib"
-	"github.com/flashmob/go-guerrilla/mail"
+	"github.com/obukhov-sergey/go-guerrilla/mail"
 	"io"
 	"sync"
 )

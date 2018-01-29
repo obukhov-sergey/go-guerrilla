@@ -1,12 +1,13 @@
 package log
 
 import (
-	log "github.com/Sirupsen/logrus"
 	"io"
 	"io/ioutil"
 	"net"
 	"os"
 	"sync"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // The following are taken from logrus

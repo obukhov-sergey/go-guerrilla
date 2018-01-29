@@ -2,12 +2,13 @@ package log
 
 import (
 	"bufio"
-	log "github.com/Sirupsen/logrus"
 	"io"
 	"io/ioutil"
 	"os"
 	"strings"
 	"sync"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // custom logrus hook

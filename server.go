@@ -11,10 +11,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/flashmob/go-guerrilla/backends"
-	"github.com/flashmob/go-guerrilla/log"
-	"github.com/flashmob/go-guerrilla/mail"
-	"github.com/flashmob/go-guerrilla/response"
+	"github.com/obukhov-sergey/go-guerrilla/backends"
+	"github.com/obukhov-sergey/go-guerrilla/log"
+	"github.com/obukhov-sergey/go-guerrilla/mail"
+	"github.com/obukhov-sergey/go-guerrilla/response"
 )
 
 const (

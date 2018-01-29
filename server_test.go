@@ -8,10 +8,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/flashmob/go-guerrilla/backends"
-	"github.com/flashmob/go-guerrilla/log"
-	"github.com/flashmob/go-guerrilla/mail"
-	"github.com/flashmob/go-guerrilla/mocks"
+	"github.com/obukhov-sergey/go-guerrilla/backends"
+	"github.com/obukhov-sergey/go-guerrilla/log"
+	"github.com/obukhov-sergey/go-guerrilla/mail"
+	"github.com/obukhov-sergey/go-guerrilla/mocks"
 )
 
 // getMockServerConfig gets a mock ServerConfig struct used for creating a new server
