@@ -7,7 +7,6 @@ import (
 	"encoding/base64"
 	"errors"
 	"fmt"
-	"gopkg.in/iconv.v1"
 	"io"
 	"io/ioutil"
 	"mime/quotedprintable"
@@ -121,9 +120,9 @@ func (e *Envelope) ParseHeaders() error {
 		headerReader := textproto.NewReader(bufio.NewReader(bytes.NewBuffer(header)))
 		e.Header, err = headerReader.ReadMIMEHeader()
 		if err != nil {
-			// decode the subject
+			// do not decode the subject
 			if subject, ok := e.Header["Subject"]; ok {
-				e.Subject = MimeHeaderDecode(subject[0])
+				e.Subject = subject[0]
 			}
 		}
 	} else {
@@ -187,71 +186,6 @@ func (e *Envelope) PopRcpt() Address {
 }
 
 var mimeRegex, _ = regexp.Compile(`=\?(.+?)\?([QBqp])\?(.+?)\?=`)
-
-// Decode strings in Mime header format
-// eg. =?ISO-2022-JP?B?GyRCIVo9dztSOWJAOCVBJWMbKEI=?=
-// This function uses GNU iconv under the hood, for more charset support than in Go's library
-func MimeHeaderDecode(str string) string {
-
-	matched := mimeRegex.FindAllStringSubmatch(str, -1)
-	var charset, encoding, payload string
-	if matched != nil {
-		for i := 0; i < len(matched); i++ {
-			if len(matched[i]) > 2 {
-				charset = matched[i][1]
-				encoding = strings.ToUpper(matched[i][2])
-				payload = matched[i][3]
-				switch encoding {
-				case "B":
-					str = strings.Replace(
-						str,
-						matched[i][0],
-						MailTransportDecode(payload, "base64", charset),
-						1)
-				case "Q":
-					str = strings.Replace(
-						str,
-						matched[i][0],
-						MailTransportDecode(payload, "quoted-printable", charset),
-						1)
-				}
-			}
-		}
-	}
-	return str
-}
-
-// decode from 7bit to 8bit UTF-8
-// encodingType can be "base64" or "quoted-printable"
-func MailTransportDecode(str string, encodingType string, charset string) string {
-	if charset == "" {
-		charset = "UTF-8"
-	} else {
-		charset = strings.ToUpper(charset)
-	}
-	if encodingType == "base64" {
-		str = fromBase64(str)
-	} else if encodingType == "quoted-printable" {
-		str = fromQuotedP(str)
-	}
-
-	if charset != "UTF-8" {
-		charset = fixCharset(charset)
-		// iconv is pretty good at what it does
-		if cd, err := iconv.Open("UTF-8", charset); err == nil {
-			defer func() {
-				cd.Close()
-				if r := recover(); r != nil {
-					//logln(1, fmt.Sprintf("Recovered in %v", r))
-				}
-			}()
-			// eg. charset can be "ISO-2022-JP"
-			return cd.ConvString(str)
-		}
-
-	}
-	return str
-}
 
 func fromBase64(data string) string {
 	buf := bytes.NewBufferString(data)

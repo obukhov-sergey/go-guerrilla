@@ -4,3 +4,7 @@ goguerrilla.conf.json
 /guerrillad
 vendor
 go-guerrilla.wiki
+goguerrilla.conf.api
+*.pid
+testlog
+testlog2
