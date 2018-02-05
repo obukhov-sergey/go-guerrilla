@@ -162,7 +162,7 @@ func (server *server) Start(startWG *sync.WaitGroup) error {
 	var clientID uint64
 	clientID = 0
 
-	listener, err := net.Listen("tcp", server.listenInterface)
+	listener, err := net.Listen("tcp4", server.listenInterface)
 	server.listener = listener
 	if err != nil {
 		startWG.Done() // don't wait for me
