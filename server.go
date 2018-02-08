@@ -25,7 +25,7 @@ const (
 	// The maximum total length of a reverse-path or forward-path is 256
 	RFC2821LimitPath = 256
 	// The maximum total length of a user name or other local-part is 64
-	RFC2832LimitLocalPart = 64
+	RFC2832LimitLocalPart = 128
 	//The maximum total length of a domain name or number is 255
 	RFC2821LimitDomain = 255
 	// The minimum total number of recipients that must be buffered is 100
