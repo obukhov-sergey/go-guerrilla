@@ -116,7 +116,7 @@ func (e *Envelope) ParseHeaders() error {
 	buf.Read(chunk)
 	headerEnd := strings.Index(string(chunk), "\n\n") // the first two new-lines chars are the End Of Header
 	if headerEnd > -1 {
-		header := chunk[0:headerEnd]
+		header := chunk[0 : headerEnd+2]
 		headerReader := textproto.NewReader(bufio.NewReader(bytes.NewBuffer(header)))
 		e.Header, err = headerReader.ReadMIMEHeader()
 		if err != nil {
