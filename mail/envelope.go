@@ -114,9 +114,14 @@ func (e *Envelope) ParseHeaders() error {
 	// read in the chunk which we'll scan for the header
 	chunk := make([]byte, max)
 	buf.Read(chunk)
-	headerEnd := strings.Index(string(chunk), "\n\n") // the first two new-lines chars are the End Of Header
+	splitter := "\n\n"
+	headerEnd := strings.Index(string(chunk), splitter) // the first two new-lines chars are the End Of Header
+	if headerEnd == -1 {
+		splitter = "\r\n\r\n"
+		headerEnd = strings.Index(string(chunk), splitter)
+	}
 	if headerEnd > -1 {
-		header := chunk[0 : headerEnd+2]
+		header := chunk[0 : headerEnd+len(splitter)]
 		headerReader := textproto.NewReader(bufio.NewReader(bytes.NewBuffer(header)))
 		e.Header, err = headerReader.ReadMIMEHeader()
 		if err == nil {
